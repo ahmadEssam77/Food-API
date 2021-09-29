@@ -1,0 +1,11 @@
+img {
+    height: 250px;
+}
+
+.navbar-nav li a {
+    cursor: pointer;
+}
+
+footer {
+    background-color: #333;
+}
