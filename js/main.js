@@ -7,7 +7,7 @@ let links = document.querySelectorAll(".navbar-nav li a");
 
 // =============== Pass the word that I clicked on it to the getAPI function and change the active class ===============
 for (let i = 0; i < links.length; i++) {
-    links[i].addEventListener("click", function(e) {
+    links[i].addEventListener("click", function (e) {
         let foodName = e.target.innerHTML;
         let theElement = e.target;
         for (let i = 0; i < links.length; i++) {
@@ -26,13 +26,13 @@ function getAPI(cuisine) {
     http.addEventListener("readystatechange", function () {
         if (http.readyState == 4 && http.status == 200) {
             storeData = JSON.parse(http.response).recipes;
-            displayMenu();
+            displayMenu(callback);
         }
     });
 }
 
 // =============== Display API
-function displayMenu() {
+function displayMenu(callback) {
     let keeper = ``;
     for (let i = 0; i < storeData.length; i++) {
         keeper += `
@@ -48,7 +48,21 @@ function displayMenu() {
     }
 
     document.getElementById('displayHere').innerHTML = keeper;
+
+    return callback();
 }
 
 // ========== Call at the beginning to show data ============
 getAPI("salad");
+
+// ========== callback function ==========
+function callback() {
+    let keeper = `
+            <div class="container py-5">
+                <div class="text-center text-white">
+                    <h5>&copy;Ahmad Essam 30-9-2021</h5>
+                </div>
+            </div>
+    `
+    document.getElementById('myFooter').innerHTML = keeper;
+}
